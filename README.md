@@ -108,8 +108,11 @@ While our mathematical models are still in training and have not converged, we h
 ### Datasets
 
 ```
+# broken but tries to merge parqet to json
 python tools/download_data.py
 
+
+wget -O data/train/archer2.0-code-1.5b-train.json https://huggingface.co/datasets/Fate-Zero/ArcherCodeR-Dataset/resolve/main/train/archercoder-1.5b-train.json
 wget -O data/test/livecodebench_v5.json \
   https://huggingface.co/datasets/Fate-Zero/ArcherCodeR-Dataset/resolve/main/test/livecodebench_v5.json
 ```
