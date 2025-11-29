@@ -3,6 +3,15 @@ set -xeuo pipefail
 
 nnodes=1
 
+export CC=gcc
+export CXX=g++
+export TORCHINDUCTOR_CPP_CXX=g++
+unset ROCR_VISIBLE_DEVICES
+module load libs/nvidia-hpc-sdk/25.3 libs/cuda/12.8.1
+module load libs/cuDNN/9.11.0
+NPROC_PER_NODE=$(nvidia-smi -L | wc -l)
+
+
 project_name='Archer2.0'
 exp_name='Archer2.0-Qwen2.5-1.5B-Math'
 
@@ -144,7 +153,7 @@ python -m dapo.main_dapo \
     trainer.logger=['console','wandb'] \
     trainer.project_name="${project_name}" \
     trainer.experiment_name="${exp_name}" \
-    trainer.n_gpus_per_node=8 \
+    trainer.n_gpus_per_node=${NPROC_PER_NODE} \
     trainer.nnodes="${nnodes}" \
     trainer.balance_batch=False \
     trainer.val_before_train=False \
